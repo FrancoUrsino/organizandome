@@ -35,7 +35,7 @@ export default function HomePage() {
     getStats,
   } = useTasks()
 
-  // Get daily tasks for rewards calculation
+
   const dailyTasks = getTasksByType('diaria').map(t => ({
     id: t.id,
     completed: t.completed,

@@ -7,7 +7,7 @@ const _geist = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
 const _geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 export const metadata: Metadata = {
-  title: 'Bloom Tasks - Organiza tu mundo',
+  title: 'Organizandome',
   description: 'Aplicación de gestión de tareas diseñada para mujeres. Organiza tus tareas diarias, semanales y mensuales de forma elegante y eficiente.',
   keywords: ['tareas', 'productividad', 'organización', 'planificación', 'mujeres', 'to-do'],
   authors: [{ name: 'Bloom Tasks' }],
@@ -15,15 +15,15 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png?v=2', // 👈 Se eliminó el SVG y se agregó ?v=2 para romper la caché
+        url: '/icon-light-32x32.png?v=2',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/icon-dark-32x32.png?v=2',  // 👈 Se agregó ?v=2 para romper la caché
+        url: '/icon-dark-32x32.png?v=2',
         media: '(prefers-color-scheme: dark)',
       },
     ],
-    apple: '/apple-icon.png?v=2', // 👈 Forzar el refresco en el acceso directo del celular
+    apple: '/apple-icon.png?v=2',
   },
 }
 

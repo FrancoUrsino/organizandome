@@ -46,7 +46,7 @@ export function AddTaskForm({ onAdd, defaultType = 'diaria' }: AddTaskFormProps)
     // 1. Creamos el objeto base con los datos obligatorios
     const taskData: Omit<Task, 'id' | 'createdAt' | 'completed'> = {
       title: title.trim(),
-      description: description.trim() || "", // Si está vacío, mandamos un texto en blanco en vez de undefined
+      description: description.trim() || "",
       priority,
       type,
     }
@@ -55,14 +55,14 @@ export function AddTaskForm({ onAdd, defaultType = 'diaria' }: AddTaskFormProps)
     if (type === 'semanal') {
       taskData.dayOfWeek = dayOfWeek
     } else {
-      taskData.dayOfWeek = 'lunes' // Valor por defecto inocuo para que TypeScript no se queje
+      taskData.dayOfWeek = 'lunes'
     }
 
     // 3. Solo agregamos el día del mes si la tarea es mensual
     if (type === 'mensual') {
       taskData.monthDay = monthDay
     } else {
-      taskData.monthDay = 1 // Valor por defecto inocuo para que TypeScript no se queje
+      taskData.monthDay = 1
     }
 
     // 4. Enviamos la tarea limpia a la función onAdd
