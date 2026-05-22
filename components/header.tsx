@@ -21,7 +21,7 @@ export function Header({ useFirebase, streak = 0, unreadNotifications = 0 }: Hea
             <Flower2 className="h-5 w-5" />
           </div>
           <div className="flex flex-col">
-            <span className="text-lg font-semibold tracking-tight">ORANIZÁNDOME</span>
+            <span className="text-lg font-semibold tracking-tight">ORGANIZÁNDOME</span>
             <span className="text-xs text-muted-foreground">Organizá tus días</span>
           </div>
         </div>
