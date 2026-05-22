@@ -1,20 +1,24 @@
 'use client'
 
-import { LayoutGrid, CalendarDays, Calendar, CalendarRange } from 'lucide-react'
+// 1. Importamos "BrainCircuit" de lucide-react para el menú móvil
+import { LayoutGrid, CalendarDays, Calendar, CalendarRange, BrainCircuit } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-export type ViewType = 'dashboard' | 'diarias' | 'semanal' | 'mensual'
+// 2. Expandimos el ViewType para incluir 'planificador'
+export type ViewType = 'dashboard' | 'diarias' | 'semanal' | 'mensual' | 'planificador'
 
 interface BottomNavProps {
   activeView: ViewType
   onViewChange: (view: ViewType) => void
 }
 
+// 3. Añadimos el nuevo botón a la lista del menú inferior
 const navItems: { view: ViewType; label: string; icon: React.ElementType }[] = [
   { view: 'dashboard', label: 'Inicio', icon: LayoutGrid },
   { view: 'diarias', label: 'Diarias', icon: CalendarDays },
   { view: 'semanal', label: 'Semanal', icon: Calendar },
   { view: 'mensual', label: 'Mensual', icon: CalendarRange },
+  { view: 'planificador', label: 'Planificar', icon: BrainCircuit }, // 👈 Nuevo botón para el celular
 ]
 
 export function BottomNav({ activeView, onViewChange }: BottomNavProps) {

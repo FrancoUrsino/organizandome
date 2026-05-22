@@ -1,6 +1,7 @@
 'use client'
 
-import { LayoutGrid, CalendarDays, Calendar, CalendarRange } from 'lucide-react'
+// 1. Sumamos "BrainCircuit" a los iconos importados de lucide-react
+import { LayoutGrid, CalendarDays, Calendar, CalendarRange, BrainCircuit } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { ViewType } from '@/components/bottom-nav'
 
@@ -9,11 +10,13 @@ interface SidebarProps {
   onViewChange: (view: ViewType) => void
 }
 
+// 2. Agregamos el planificador al arreglo dinámico
 const navItems: { view: ViewType; label: string; icon: React.ElementType }[] = [
   { view: 'dashboard', label: 'Dashboard', icon: LayoutGrid },
   { view: 'diarias', label: 'Tareas Diarias', icon: CalendarDays },
   { view: 'semanal', label: 'Tareas Semanales', icon: Calendar },
   { view: 'mensual', label: 'Tareas Mensuales', icon: CalendarRange },
+  { view: 'planificador', label: 'Planificador', icon: BrainCircuit },
 ]
 
 export function Sidebar({ activeView, onViewChange }: SidebarProps) {
