@@ -13,12 +13,15 @@ import { NotificationToast } from '@/components/notification-toast'
 import { useTasks } from '@/hooks/use-tasks'
 import { useRewards } from '@/hooks/use-rewards'
 import type { TaskType } from '@/types/task'
+import { PlannerView } from '@/components/views/planner-view'
 
+// 1. Agregamos la propiedad 'planificador' para cumplir con el tipo estricto Record<ViewType, ...>
 const viewToTaskType: Record<ViewType, TaskType | undefined> = {
   dashboard: undefined,
   diarias: 'diaria',
   semanal: 'semanal',
   mensual: 'mensual',
+  planificador: undefined, // 👈 Corrección de la advertencia subrayada
 }
 
 export default function HomePage() {
@@ -34,7 +37,6 @@ export default function HomePage() {
     getTasksByType,
     getStats,
   } = useTasks()
-
 
   const dailyTasks = getTasksByType('diaria').map(t => ({
     id: t.id,
@@ -95,6 +97,12 @@ export default function HomePage() {
             onUpdate={updateTask}
           />
         )
+      case 'planificador':
+        return (
+          <PlannerView 
+            tasks={tasks}
+          />
+        )
       default:
         return null
     }
@@ -128,7 +136,8 @@ export default function HomePage() {
       {!loading && (
         <AddTaskForm
           onAdd={addTask}
-          defaultType={viewToTaskType[activeView] || 'diaria'}
+          // 2. Si da undefined (como en dashboard o planificador), forzamos que use 'diaria' por defecto
+          defaultType={viewToTaskType[activeView] || 'diaria'} 
         />
       )}
 
