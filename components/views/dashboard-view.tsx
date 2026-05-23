@@ -1,10 +1,11 @@
 'use client'
 
-import { CalendarDays, Calendar, CalendarRange, CheckCircle2, Circle, TrendingUp, Gift } from 'lucide-react'
+import { CalendarDays, Calendar, CalendarRange, CheckCircle2, Circle, TrendingUp, Gift, Trophy } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { StreakDisplay } from '@/components/streak-display'
 import { VouchersList } from '@/components/vouchers-list'
-import type { DashboardStats, Streak, DailyProgress, Voucher } from '@/types/task'
+import { HistoryCalendar } from '@/components/views/history-calendar'
+import type { DashboardStats, Streak, DailyProgress, Voucher, Task } from '@/types/task'
 
 interface DashboardViewProps {
   stats: DashboardStats
@@ -13,6 +14,7 @@ interface DashboardViewProps {
   milestones: number[]
   vouchers: Voucher[]
   onUseVoucher: (id: string) => void
+  tasks: Task[]
 }
 
 export function DashboardView({
@@ -22,6 +24,7 @@ export function DashboardView({
   milestones,
   vouchers,
   onUseVoucher,
+  tasks,
 }: DashboardViewProps) {
   const totalTasks = stats.diarias.total + stats.semanales.total + stats.mensuales.total
   const totalCompleted = stats.diarias.completed + stats.semanales.completed + stats.mensuales.completed
@@ -81,6 +84,17 @@ export function DashboardView({
           </CardContent>
         </Card>
       )}
+
+      {/* NUEVA SECCIÓN: HISTORIAL DE VICTORIAS (ÚLTIMOS 30 DÍAS) */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-2 pl-1">
+          <Trophy className="h-4 w-4 text-amber-500" />
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            Tu Camino de Victorias
+          </h2>
+        </div>
+        <HistoryCalendar tasks={tasks} />
+      </div>
 
       {/* Stats Grid */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
