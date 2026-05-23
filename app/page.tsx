@@ -21,7 +21,7 @@ const viewToTaskType: Record<ViewType, TaskType | undefined> = {
   diarias: 'diaria',
   semanal: 'semanal',
   mensual: 'mensual',
-  planificador: undefined, // 👈 Corrección de la advertencia subrayada
+  planificador: undefined,
 }
 
 export default function HomePage() {
@@ -66,6 +66,7 @@ export default function HomePage() {
             milestones={MILESTONES}
             vouchers={vouchers}
             onUseVoucher={useVoucher}
+            tasks={tasks}
           />
         )
       case 'diarias':

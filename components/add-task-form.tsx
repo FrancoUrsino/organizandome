@@ -39,41 +39,36 @@ export function AddTaskForm({ onAdd, defaultType = 'diaria' }: AddTaskFormProps)
   const [monthDay, setMonthDay] = useState<number>(1)
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  e.preventDefault()
+  if (!title.trim()) return
 
-    if (!title.trim()) return
-
-    // 1. Creamos el objeto base con los datos obligatorios
-    const taskData: Omit<Task, 'id' | 'createdAt' | 'completed'> = {
-      title: title.trim(),
-      description: description.trim() || "",
-      priority,
-      type,
-    }
-
-    // 2. Solo agregamos el día de la semana si la tarea es semanal
-    if (type === 'semanal') {
-      taskData.dayOfWeek = dayOfWeek
-    } else {
-      taskData.dayOfWeek = 'lunes'
-    }
-
-    // 3. Solo agregamos el día del mes si la tarea es mensual
-    if (type === 'mensual') {
-      taskData.monthDay = monthDay
-    } else {
-      taskData.monthDay = 1
-    }
-
-    // 4. Enviamos la tarea limpia a la función onAdd
-    onAdd(taskData)
-
-    // Reset form
-    setTitle('')
-    setDescription('')
-    setPriority('media')
-    setIsOpen(false)
+  // 1. Creamos el objeto base SOLO con lo que comparten todas las tareas
+  const taskData: any = {
+    title: title.trim(),
+    description: description.trim() || "",
+    priority,
+    type,
   }
+
+  // 2. SOLO agregamos el día de la semana si la tarea es SEMANAL
+  if (type === 'semanal') {
+    taskData.dayOfWeek = dayOfWeek
+  }
+
+  // 3. SOLO agregamos el número de día si la tarea es MENSUAL
+  if (type === 'mensual') {
+    taskData.monthDay = monthDay
+  }
+
+  // 4. Enviamos la información limpia
+  onAdd(taskData)
+
+  // Reset de estados
+  setTitle('')
+  setDescription('')
+  setPriority('media')
+  setIsOpen(false)
+}
 
   if (!isOpen) {
     return (
