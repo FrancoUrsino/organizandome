@@ -21,7 +21,10 @@ const navItems: { view: ViewType; label: string; icon: React.ElementType }[] = [
 
 export function Sidebar({ activeView, onViewChange }: SidebarProps) {
   return (
-    <aside className="hidden md:flex h-[calc(100vh-4rem)] w-64 flex-col border-r border-border/40 bg-sidebar">
+    <aside 
+      // 🛠️ Cambiado a sticky y fijado top-16 (ajusta este valor si tu Header es más alto o más bajo)
+      className="hidden md:flex sticky top-16 h-[calc(100vh-4rem)] w-64 flex-col border-r border-border/40 bg-sidebar"
+    >
       <div className="flex-1 overflow-y-auto p-4">
         <nav className="space-y-1">
           {navItems.map(({ view, label, icon: Icon }) => (
