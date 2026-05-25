@@ -1,17 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { Plus, X } from 'lucide-react'
+import { Plus, X, Hash } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from '@/components/ui/select'
 import type { Task, TaskPriority, TaskType, DayOfWeek } from '@/types/task'
 
 interface AddTaskFormProps {
@@ -37,38 +31,41 @@ export function AddTaskForm({ onAdd, defaultType = 'diaria' }: AddTaskFormProps)
   const [type, setType] = useState<TaskType>(defaultType)
   const [dayOfWeek, setDayOfWeek] = useState<DayOfWeek>('lunes')
   const [monthDay, setMonthDay] = useState<number>(1)
+  const [tagsInput, setTagsInput] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault()
-  if (!title.trim()) return
+    e.preventDefault()
+    if (!title.trim()) return
 
-  // 1. Creamos el objeto base SOLO con lo que comparten todas las tareas
-  const taskData: any = {
-    title: title.trim(),
-    description: description.trim() || "",
-    priority,
-    type,
+    const processedTags = tagsInput
+      .split(',')
+      .map(tag => tag.trim().toLowerCase())
+      .filter(tag => tag.length > 0)
+
+    const taskData: any = {
+      title: title.trim(),
+      description: description.trim() || "",
+      priority,
+      type,
+      tags: processedTags,
+    }
+
+    if (type === 'semanal') {
+      taskData.dayOfWeek = dayOfWeek
+    }
+
+    if (type === 'mensual') {
+      taskData.monthDay = monthDay
+    }
+
+    onAdd(taskData)
+
+    setTitle('')
+    setDescription('')
+    setPriority('media')
+    setTagsInput('') 
+    setIsOpen(false)
   }
-
-  // 2. SOLO agregamos el día de la semana si la tarea es SEMANAL
-  if (type === 'semanal') {
-    taskData.dayOfWeek = dayOfWeek
-  }
-
-  // 3. SOLO agregamos el número de día si la tarea es MENSUAL
-  if (type === 'mensual') {
-    taskData.monthDay = monthDay
-  }
-
-  // 4. Enviamos la información limpia
-  onAdd(taskData)
-
-  // Reset de estados
-  setTitle('')
-  setDescription('')
-  setPriority('media')
-  setIsOpen(false)
-}
 
   if (!isOpen) {
     return (
@@ -124,6 +121,19 @@ export function AddTaskForm({ onAdd, defaultType = 'diaria' }: AddTaskFormProps)
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Agrega más detalles (opcional)"
               rows={2}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="tags" className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
+              <Hash className="h-3.5 w-3.5" /> Etiquetas (separadas por comas)
+            </label>
+            <Input
+              id="tags"
+              value={tagsInput}
+              onChange={(e) => setTagsInput(e.target.value)}
+              placeholder="ej: facu, gym, estudio, compras"
+              className="text-sm"
             />
           </div>
 

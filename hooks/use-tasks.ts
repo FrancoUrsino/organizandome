@@ -95,6 +95,7 @@ export function useTasks() {
               dueDate: data.dueDate,
               dayOfWeek: data.dayOfWeek,
               monthDay: data.monthDay,
+              tags: data.tags || [], // Traemos los tags desde Firebase
             })
           })
           setTasks(tasksData)
@@ -136,6 +137,7 @@ export function useTasks() {
       id: generateId(),
       createdAt: new Date().toISOString(),
       completed: false,
+      tags: taskData.tags || [],
     }
 
     if (useFirebase) {
@@ -146,6 +148,7 @@ export function useTasks() {
             ...taskData,
             createdAt: Timestamp.now(),
             completed: false,
+            tags: taskData.tags || [], // Subimos los tags a Firebase explícitamente
           })
           return
         } catch (error) {
@@ -202,7 +205,7 @@ export function useTasks() {
   const getTasksByType = useCallback((type: TaskType) => {
     return tasks.filter((task) => {
       if (task.type !== type) return false
-      if (!task.createdAt) return true // Por seguridad, si no tiene fecha la dejamos visible
+      if (!task.createdAt) return true
 
       if (type === 'diaria') return esHoy(task.createdAt)
       if (type === 'semanal') return esSemanaActual(task.createdAt)
@@ -215,7 +218,6 @@ export function useTasks() {
   // --- ESTADÍSTICAS DEL DASHBOARD SIN CONTAR LO VIEJO ---
   const getStats = useCallback((): DashboardStats => {
     const calculateStats = (type: TaskType) => {
-      // Usamos el filtro de tiempo aquí también para que el dashboard no sume tareas viejas
       const typeTasks = tasks.filter((task) => {
         if (task.type !== type) return false
         if (!task.createdAt) return true

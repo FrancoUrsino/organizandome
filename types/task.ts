@@ -1,18 +1,18 @@
 export type TaskPriority = 'alta' | 'media' | 'baja'
 export type TaskType = 'diaria' | 'semanal' | 'mensual'
 export type DayOfWeek = 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado' | 'domingo'
-
 export interface Task {
   id: string
   title: string
   description?: string
-  priority: TaskPriority
-  type: TaskType
+  priority: 'alta' | 'media' | 'baja'
+  type: 'diaria' | 'semanal' | 'mensual'
   completed: boolean
   createdAt: string
-  dueDate?: string
-  dayOfWeek?: DayOfWeek
+  dayOfWeek?: string
   monthDay?: number
+  tags?: string[]
+  dueDate?: string 
 }
 
 export interface TaskStats {

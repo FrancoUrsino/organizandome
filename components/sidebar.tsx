@@ -1,6 +1,4 @@
 'use client'
-
-// 1. Sumamos "BrainCircuit" a los iconos importados de lucide-react
 import { LayoutGrid, CalendarDays, Calendar, CalendarRange, BrainCircuit } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { ViewType } from '@/components/bottom-nav'
@@ -22,7 +20,6 @@ const navItems: { view: ViewType; label: string; icon: React.ElementType }[] = [
 export function Sidebar({ activeView, onViewChange }: SidebarProps) {
   return (
     <aside 
-      // 🛠️ Cambiado a sticky y fijado top-16 (ajusta este valor si tu Header es más alto o más bajo)
       className="hidden md:flex sticky top-16 h-[calc(100vh-4rem)] w-64 flex-col border-r border-border/40 bg-sidebar"
     >
       <div className="flex-1 overflow-y-auto p-4">

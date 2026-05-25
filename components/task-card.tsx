@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Check, Trash2, Edit3, ChevronDown, ChevronUp, GripVertical, Clock } from 'lucide-react' // 👈 Importamos el icono Clock
+import { Check, Trash2, Edit3, ChevronDown, ChevronUp, GripVertical, Clock } from 'lucide-react' 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -92,7 +92,6 @@ export function TaskCard({ task, onToggle, onDelete, onUpdate }: TaskCardProps) 
             </h3>
           )}
 
-          {/* CONTENEDOR DE ETIQUETAS */}
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <span
               className={cn(
@@ -116,7 +115,15 @@ export function TaskCard({ task, onToggle, onDelete, onUpdate }: TaskCardProps) 
               </span>
             )}
 
-            {/* 🕒 AQUÍ AGREGAMOS LA FECHA Y HORA REAL VISIBLE */}
+            {task.tags && task.tags.map((tag) => (
+              <span 
+                key={tag} 
+                className="inline-flex items-center rounded-md bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground border border-border/40 tracking-wide"
+              >
+                #{tag}
+              </span>
+            ))}
+
             {task.createdAt && (
               <span className="inline-flex items-center gap-1 text-xs text-muted-foreground/80 font-normal bg-muted/40 px-2 py-0.5 rounded-full">
                 <Clock className="h-3 w-3 text-muted-foreground/60" />
